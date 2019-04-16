@@ -1,11 +1,20 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {
+  ChooseElementsComponent,
+  DeleteGroupComponent,
+  NewPerfomanceComponent,
+  newPerfomanceDialog,
+  deleteGroupDialog,
+  combineUFDialog
+} from '@core/components/dialogs';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
+  public dialog: MatDialog;
   public items: BusinessEntity1[];
 
   private http: HttpClient;
@@ -19,6 +28,18 @@ export class FetchDataComponent {
     this.http.get<BusinessEntity1[]>(this.baseUrl + `api/SampleData/search/${text}`).subscribe(result => {
       this.items = result;
     }, error => console.error(error));
+  }
+
+  editItem(item: BusinessEntity1): void {
+    const dialogRef = this.dialog.open(ChooseElementsComponent, combineUFDialog);
+    dialogRef.afterClosed()
+      .pipe(
+        filter(Boolean),
+        untilDestroyed(this)
+      )
+      .subscribe(() => {
+        this.store.dispatch(new ComponentPerformance.SetUnitPricingConnected({ perfId: value }));
+      });
   }
 }
 

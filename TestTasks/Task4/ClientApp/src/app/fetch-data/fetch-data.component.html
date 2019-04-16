@@ -8,7 +8,7 @@
     </div>
     <div class="form-group">
       <div class="col-md-offset-2 col-md-8">
-        <button class="btn btn-default" (click)="findItem(text)">Find</button>
+        <button class="btn btn-primary" (click)="findItem(text)">Find</button>
       </div>
     </div>
   </div>
@@ -27,6 +27,7 @@
       <tr *ngFor="let item of items">
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
+        <td><button class="btn btn-primary" (click)="edit(item)">Edit</button></td>
       </tr>
     </tbody>
   </table>
