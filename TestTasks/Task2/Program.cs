@@ -13,8 +13,8 @@ namespace Task2
             using (new ElapsedTimeLogger("Creating random int array"))
            {
                 intArray = GenerateRandomIntArray();
-                CheckForDuplicates(intArray);
-           }
+            }
+            CheckForDuplicates(intArray);
 
             WriteLine("Press any key to continue");
             ReadKey();
@@ -43,12 +43,17 @@ namespace Task2
         private static int[] GenerateRandomIntArray()
         {
             var random = new Random(); //init randomizer
-            //Get int range, order by random,
-            return Enumerable.Range(1, 100000)
-                .OrderBy(x => random.Next())
-                .ToArray();
-
-
+            //Get int range
+            var intArray =  Enumerable.Range(1, 100000).ToArray();
+            //Fisher–Yates shuffle
+            for (int i = 1; i <= intArray.Length - 1; i++)
+            {
+                var rnd = random.Next(100000);
+                var tmp = intArray[rnd];
+                intArray[rnd] = intArray[i];
+                intArray[i] = tmp;
+            }
+            return intArray;
         }
     }
 }
