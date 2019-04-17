@@ -27,7 +27,8 @@
       <tr *ngFor="let item of items">
         <td>{{ item.id }}</td>
         <td>{{ item.name }}</td>
-        <td><button class="btn btn-primary" (click)="edit(item)">Edit</button></td>
+        <td>{{ item.description }}</td>
+        <td><button class="btn btn-primary" (click)="editItem(item)">Edit</button></td>
       </tr>
     </tbody>
   </table>
