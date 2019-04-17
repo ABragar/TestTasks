@@ -82,7 +82,7 @@ export class DialogEditItem {
 }
 
 interface BusinessEntity1 {
-  Id: number;
-  Name: string;
-  Description: string;
+  id: number;
+  name: string;
+  description: string;
 }
