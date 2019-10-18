@@ -1,4 +1,4 @@
-﻿using Autofac;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Task3.DAL;
 using Task3.DAL.Interfaces;
 using Task3.Services.Implementation;
@@ -11,26 +11,25 @@ namespace Task3
     {
         private static void Main(string[] args)
         {
-            var iocContainer = BuildContainer();
-            var service = iocContainer.Resolve<IBusinessProcess1>();
+            var serviceCollection = new ServiceCollection();
+           BuildServiceCollection(serviceCollection);
 
-            service.DoSomeProcess();
-            WriteLine("Press any key to continue");
+            var serviceProvider = serviceCollection.BuildServiceProvider();
+            serviceProvider.GetService<IWorkFlowService>().Run();
+
             ReadKey();
         }
 
         /// <summary>
-        /// define IoC contaiber
+        /// configure service collection
         /// </summary>
         /// <returns></returns>
-        private static IContainer BuildContainer()
+        private static void BuildServiceCollection(IServiceCollection serviceCollection)
         {
-            var builder = new ContainerBuilder();
-            //init service
-            builder.RegisterType<BusinessProcess1>().As<IBusinessProcess1>();
-            //init repositories
-            builder.RegisterType<UnitOfWork>().As<IUnitOfWork>();
-            return builder.Build();
+            serviceCollection.AddTransient<IWorkFlowService, WorkFlowService>();
+            serviceCollection.AddTransient<IInputItemService, InputItemService>();
+            serviceCollection.AddTransient<IStorageService, StorageService>();
+            serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
         }
     }
 }

@@ -6,15 +6,15 @@ namespace Task3.DAL
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private IRepository<BusinessEntity1> _businessEntities1Repo;
+        private IRepository<Item> _itemRepository;
 
-        public IRepository<BusinessEntity1> BusinessEntities1Repo
+        public IRepository<Item> ItemRepository
         {
             get
             {
-                if (_businessEntities1Repo == null)
-                    _businessEntities1Repo = new BusinessProcessRepository();
-                return _businessEntities1Repo;
+                if (_itemRepository == null)
+                    _itemRepository = new ItemRepository();
+                return _itemRepository;
             }
         }
     }

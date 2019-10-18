@@ -1,6 +1,6 @@
 ﻿namespace Task3.DAL.Entities
 {
-    public class BusinessEntity1 : IBusinessEntity1
+    public class Item : IItem
     {
         public int Id { get; set; }
         public string Name { get; set; }

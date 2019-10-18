@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using static System.Console;
 
 namespace Task1
@@ -7,21 +7,26 @@ namespace Task1
     {
         private static void Main(string[] args)
         {
-            //loop from 1 to 100, check the remainder of dividing i by 3, i by 5.
             for (int i = 1; i <= 100; i++)
             {
-                if (i % 3 == 0)
+                var isFoo = (i % 3 == 0);
+                var isBar = (i % 5 == 0);
+                
+                if (isFoo)
                 {
-                    WriteLine("Foo");
+                    Write("Foo");
                 }
-                else if (i % 5 == 0)
+                
+                if (isBar)
                 {
-                    WriteLine("Bar");
+                    Write("Bar");
                 }
-                else
+                
+                if(!(isFoo || isBar))
                 {
-                    WriteLine(i);
+                    Write(i);
                 }
+                Write(Environment.NewLine);
             }
             ReadKey();
         }

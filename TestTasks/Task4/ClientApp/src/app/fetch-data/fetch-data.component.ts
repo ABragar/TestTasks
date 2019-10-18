@@ -7,7 +7,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './fetch-data.component.html'
 })
 export class FetchDataComponent {
-  public items: BusinessEntity1[];
+  public items: Item[];
 
   private http: HttpClient;
   private baseUrl: string;
@@ -28,7 +28,7 @@ export class FetchDataComponent {
     return newItem.id === this;
   }
 
-  openDialog(item: BusinessEntity1): void {
+  openDialog(item: Item): void {
     debugger;
     const dialogRef = this.dialog.open(DialogEditItem, {
       width: '400px',
@@ -45,19 +45,19 @@ export class FetchDataComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.updateItem(result);
-      this.http.post(this.baseUrl + `api/SampleData/save`, result).subscribe(result => {
+        this.http.post(this.baseUrl + `api/Item`, result).subscribe(result => {
       }, error => console.error(error));
     });
   }
 
   findItem(text: string): void {
-    this.http.get<BusinessEntity1[]>(this.baseUrl + `api/SampleData/search/${text}`).subscribe(result => {
+      this.http.get<Item[]>(this.baseUrl + `api/Item/${text}`).subscribe(result => {
       this.items = result;
     }, error => console.error(error));
   }
 
 
-  editItem(item: BusinessEntity1): void {
+  editItem(item: Item): void {
     debugger;
     this.openDialog(item);
   }
@@ -73,7 +73,7 @@ export class DialogEditItem {
 
   constructor(
     public dialogRef: MatDialogRef<DialogEditItem>,
-    @Inject(MAT_DIALOG_DATA) public data: BusinessEntity1) { }
+    @Inject(MAT_DIALOG_DATA) public data: Item) { }
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -81,7 +81,7 @@ export class DialogEditItem {
 
 }
 
-interface BusinessEntity1 {
+interface Item {
   id: number;
   name: string;
   description: string;
